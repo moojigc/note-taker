@@ -2,7 +2,7 @@ const PORT = process.env.PORT || 3000;
 const express = require('express');
 const path = require('path')
 const mysql = require('mysql2');
-const { DB_HOST, DB_NAME, PASSWORD, USERNAME } = require('./utils/config.json');
+const { DB_HOST, DB_NAME, PASSWORD, USERNAME } = process.env || require('./utils/config.json');
 const moment = require('moment');
 
 const db = mysql.createConnection({
