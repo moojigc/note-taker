@@ -5,14 +5,14 @@ const mysql = require('mysql2');
 const { DB_HOST, DB_NAME, PASSWORD, USERNAME } = process.env || require('./utils/config.json');
 const moment = require('moment');
 
-const db = mysql.createConnection({
+const db = mysql.createPool({
     host: process.env.DB_HOST || DB_HOST,
     user: process.env.USERNAME || USERNAME,
     password: process.env.PASSWORD || PASSWORD,
     database: process.env.DB_NAME || DB_NAME
 });
 
-db.connect(err => {
+db.getConnection(err => {
     if (err) throw err;
     else console.log(`MySQL connected to ${DB_HOST}`);
 });
