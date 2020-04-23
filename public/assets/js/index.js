@@ -39,6 +39,7 @@ const signUp = async () => {
     sessionStorage.setItem("user_id", res.user_id);
     sessionStorage.setItem("username", res.username);
     console.log(res);
+    window.open('/notes.html', "_self");
   }
 }
 

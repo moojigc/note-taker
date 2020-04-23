@@ -96,7 +96,7 @@ function signUpLogin() {
                 message: "User created",
                 succeeded: true,
                 user_id: createdUser[0].id,
-                username: createdUser[0].username
+                username: newUser.username
             })
         }
         else {

@@ -42,6 +42,9 @@ body {
   color: whitesmoke;
   background: var(--secondary);
 }
+.card-body {
+  padding: unset;
+}
 
 .button-group {
   margin-top: 0.5rem;
