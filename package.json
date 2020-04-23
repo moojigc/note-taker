@@ -24,8 +24,13 @@
   "homepage": "https://github.com/moojigc/note-taker#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "moment": "^2.24.0",
     "mysql2": "^2.1.0",
-    "sequelize": "^5.21.6"
+    "sequelize": "^5.21.6",
+    "sequelize-cli": "^5.5.1"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0"
   }
 }

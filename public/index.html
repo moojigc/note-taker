@@ -9,19 +9,64 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.3/flatly/bootstrap.min.css" />
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Playfair+Display&display=swap" rel="stylesheet"> 
 	<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
+
+	<style>
+		.col-lg-8, .col-lg-4 {
+			padding: 0.5rem;
+		}
+		.card, .jumbotron {
+			height: 100%;
+		}
+		.card {
+			background: var(--tertiary);
+		}
+		.card * {
+			margin-bottom: 0.2rem;
+			color: black;
+		}
+		.form-control {
+			color: white;
+		}
+	
+	</style>
+
 </head>
 
 <body>
 	<nav class="navbar">
 		<a class="navbar-brand" href="/">Note Taker </a>
 	</nav>
-	<div class="container">
-		<div style="margin-top: 80px;" class="jumbotron text-center">
-			<h1 class="display-4">
-				Note Taker <span role="img" aria-label="Memo">📝</span>
-			</h1>
-			<h4 class="mt-4">Take notes with Express</h4>
-			<a class="btn btn-primary btn-lg mt-4" href="/notes.html" role="button">Get Started</a>
+	<div class="container wrapper">
+		<div class="row">
+			<div class="col-lg-8">
+				<div class="jumbotron text-center">
+					<h1 class="display-4">
+						Note Taker <span role="img" aria-label="Memo">📝</span>
+					</h1>
+					<h4 class="mt-4">Take notes with Express</h4>
+					<h5 style="color: red;">Warning: Don't write anything important or personal into this website! This is just a demo!</h5>
+					<!-- <a class="btn btn-primary btn-lg mt-4" href="/notes.html" role="button">Get Started</a> -->
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="card">
+					<div class="card-header"><h3>Sign Up | Login</h3></div>
+					<div class="card-body">
+						<label for="username">Username</label>
+						<div class="input-group mb-4">
+							<input type="text" name="username" class="form-control username">
+						</div>
+						<label for="username">Password</label>
+						<div class="input-group">
+							<input type="password" name="password" class="form-control password">
+						</div>
+						<small class="form-text">Don't use your bank password or anything important like that!</small>
+						<small class="response-message"></small>
+						<button class="btn btn-block btn-info sign-up">New here? Create Account</button>
+						<button class="btn btn-block btn-success sign-in">Login</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

@@ -3,7 +3,7 @@
 :root {
 	--primary: #222831;
 	--secondary: #30475e;
-	--tertiary: #f2a365;
+	--tertiary: #ff9898;
   --accent: #ececec;
   --transluscent: #ffffff2b;
   --box-shadow:  #0000002b;
@@ -81,7 +81,8 @@ body {
 
 .note-title:read-only,
 .note-textarea:read-only {
-  color: #757575;
+  background: var(--secondary);
+  color: whitesmoke;
 }
 
 .list-container .card {
@@ -116,6 +117,10 @@ footer {
   padding: 0.5rem;
   text-align: center;
   width: 100%;
+}
+
+.display-none {
+  display: none;
 }
 
 @media screen and (max-width: 997px) {
