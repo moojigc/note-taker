@@ -52,6 +52,11 @@ body {
   display: flex;
   justify-content: space-between;
 }
+.time {
+  margin: 0;
+  color: antiquewhite;
+  text-align: center;
+}
 
 .save-note {
   display: none;
@@ -119,6 +124,7 @@ body {
 .btn-tertiary {
   background: var(--tertiary);
 }
+
 
 footer {
   background: var(--primary);

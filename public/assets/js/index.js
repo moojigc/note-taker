@@ -11,6 +11,7 @@ const $password = $(".password");
 const $responseMessage = $(".response-message");
 const $editBtn = $(".edit-btn");
 const $getStartedBtn = $('.get-started-btn')
+const $timeDisplay = $('.time');
 
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
@@ -113,6 +114,7 @@ const deleteNote = function(id) {
 // If there is an activeNote, display it, otherwise render empty inputs
 const renderActiveNote = function() {
   $saveNoteBtn.hide();
+  // $timeDisplay.attr("style", "margin: 0");
 
   if (activeNote.id) {
     $clearBtn.addClass('display-none');
@@ -121,6 +123,7 @@ const renderActiveNote = function() {
     $noteText.attr("readonly", true);
     $noteTitle.val(activeNote.post_title);
     $noteText.val(activeNote.body);
+    $timeDisplay.text(`Created: ${moment(activeNote.publish_at).format('MMMM Do, YYYY hh:mm a')}.`);
   } else {
     $noteTitle.attr("readonly", false);
     $noteText.attr("readonly", false);
