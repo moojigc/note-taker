@@ -128,7 +128,7 @@ const handleNoteSave = function() {
     body: $noteText.val()
   };
 
-  saveNote(newNote).then(function(data) {
+  saveNote(newNote).then(function(newNote) {
     getAndRenderNotes();
     renderActiveNote();
   });

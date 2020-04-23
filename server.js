@@ -179,7 +179,7 @@ async function startConnection() {
     // POST
     app.post('/api/notes', (req, res) => {
         const { user_id, post_title, body } = req.body;
-        const sql = `INSERT INTO notes(user_id, post_title, body) VALUES('${user_id}', '${post_title}', '${body}');`;
+        const sql = `INSERT INTO notes(user_id, post_title, body) VALUES(${user_id}, '${post_title}', '${body}');`;
         dbPostRequest(res, sql);
     });
 
