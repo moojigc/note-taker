@@ -5,7 +5,7 @@ const User = require('./utils/User');
 
 // env variables
 const PORT = process.env.PORT || 3000;
-const { DB_HOST, DB_NAME, PASSWORD, USERNAME } = require('./utils/config.json').dev || process.env;
+const { DB_HOST, DB_NAME, PASSWORD, USERNAME } = require('./utils/config.json').dev ? require('./utils/config.json').dev : process.env; 
 
 const sequelize = new Sequelize({ // Actually connect to db
     dialect: "mysql",
