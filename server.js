@@ -62,6 +62,16 @@ async function dbPostRequest(res, sql, ...query) {
         console.log(error)
     }
 };
+async function dbDeleteRequest(res, sql, ...query) {
+    try {        
+        const result = await dbQuery(sql, QueryTypes.DELETE, query);
+        res.sendStatus(201);
+        return result;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
 function getPage() { // serves html pages
     // sends home page
@@ -182,6 +192,12 @@ async function startConnection() {
         const sql = `INSERT INTO notes(user_id, post_title, body) VALUES(${user_id}, '${post_title}', '${body}');`;
         dbPostRequest(res, sql);
     });
+    // DELETE
+    app.delete('/api/notes/:id', (req, res) => {
+        const sql = `DELETE FROM notes WHERE id = ?;`;
+        dbDeleteRequest(res, sql, req.params.id);
+    })
+
 
     app.listen(PORT, (err) => {
         if (err) throw err;

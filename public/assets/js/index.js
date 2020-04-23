@@ -10,6 +10,7 @@ const $username = $(".username");
 const $password = $(".password");
 const $responseMessage = $(".response-message");
 const $editBtn = $(".edit-btn");
+const $getStartedBtn = $('.get-started-btn')
 
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
@@ -21,7 +22,23 @@ const storedUsername = sessionStorage.getItem("username");
 let sessionUserID = storedUserID ? storedUserID : null;
 let sessionUsername = storedUsername ? storedUsername : null;
 
-console.log(sessionUserID);
+console.log(window);
+if (sessionUserID === storedUserID && window.location.pathname !== '/notes.html') {
+  // window.open('./notes.html', '_self');
+};
+
+console.log('%c ' + sessionUserID, 'color: pink; background: black; font-weight: bold;');
+
+const getStarted = () => {
+  const [$jumbotron, $loginCard] = [$('.jumbotron').parent(), $('.login-card')];
+  // Make the jumbo smaller, have the card appear, and remove btn 
+  $jumbotron.animate({
+    maxWidth: "calc(100% * 2 / 3)",
+  }, 400)
+  $loginCard.show(400);
+  $getStartedBtn.hide(600);
+
+}
 
 const signUp = async () => {
   const res = await $.ajax({
@@ -98,6 +115,7 @@ const renderActiveNote = function() {
   $saveNoteBtn.hide();
 
   if (activeNote.id) {
+    $clearBtn.addClass('display-none');
     $editBtn.removeClass('display-none');
     $noteTitle.attr("readonly", true);
     $noteText.attr("readonly", true);
@@ -113,7 +131,7 @@ const renderActiveNote = function() {
 
 // Edit notes
 const editNote = () => {
-  $saveNoteBtn.hide();
+  $saveNoteBtn.show('fast');
 
   if (activeNote.id) {
     $noteTitle.attr("readonly", false);
@@ -140,10 +158,10 @@ const handleNoteDelete = function(event) {
   // prevents the click listener for the list from being called when the button inside of it is clicked
   event.stopPropagation();
 
-  let note = $(this)
+  let note = $('.delete-note')
     .parent(".list-group-item")
     .data();
-
+  console.log(note);
   if (activeNote.id === note.id) {
     activeNote = note;
   }
@@ -185,13 +203,11 @@ const renderNoteList = function(notes) {
 
   for (let i = 0; i < notes.length; i++) {
     let note = notes[i];
-    console.log(`${i}. ${note.id}`);
+    console.log(`${i}. ${note.id}`, 'color: pink; font-weight: bold; background: black;');
 
     let $li = $("<button class='list-group-item list-group-item-action'>").data(note);
     let $span = $("<span>").text(note.post_title);
-    let $delBtn = $(
-      "<i class='fas fa-trash-alt float-right text-danger delete-note'>"
-    );
+    let $delBtn =`<button class='btn btn-primary delete-note'><i class='fas fa-trash-alt float-right text-danger'></i></button>`;
 
     $li.append($span, $delBtn);
     noteListItems.push($li);
@@ -212,16 +228,23 @@ const clearNote = () => {
   $noteText.val('');
 }
 
+$getStartedBtn.on("click", getStarted);
 $saveNoteBtn.on("click", handleNoteSave);
 $noteList.on("click", ".list-group-item", handleNoteView);
 $newNoteBtn.on("click", handleNewNoteView);
-$noteList.on("click", ".delete-note", handleNoteDelete);
 $noteTitle.on("keyup", handleRenderSaveBtn);
 $noteText.on("keyup", handleRenderSaveBtn);
 $clearBtn.on("click", clearNote);
+$editBtn.on("click", editNote);
 $signUpBtn.on("click", signUp);
 $signInBtn.on("click", signIn);
 $(document).on("click", ".delete-note", handleNoteDelete);
+$(".password").keypress(function(event){
+  let keycode = (event.keyCode ? event.keyCode : event.which);
+  if (keycode == '13'){
+      signIn(); 
+  }
+});
 
 
 // Gets and renders the initial list of notes

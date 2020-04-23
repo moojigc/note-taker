@@ -19,6 +19,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  color: black;
 }
 
 .navbar {
@@ -39,8 +40,8 @@ body {
 
 .card, .list-group-item, .form-control, .form-control:hover,
 .form-control:focus {
-  color: whitesmoke;
-  background: var(--secondary);
+  color: black;
+  background: var(--accent);
 }
 .card-body {
   padding: unset;
@@ -111,6 +112,13 @@ body {
   padding: 20px;
   cursor: pointer;
 }
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+}
+.btn-tertiary {
+  background: var(--tertiary);
+}
 
 footer {
   background: var(--primary);
@@ -120,13 +128,14 @@ footer {
   padding: 0.5rem;
   text-align: center;
   width: 100%;
+  /* margin-top: 5rem; */
 }
 
 .display-none {
   display: none;
 }
 
-@media screen and (max-width: 997px) {
+@media screen and (max-width: 992px) {
   .note-entry {
     margin-bottom: 1rem;
   }

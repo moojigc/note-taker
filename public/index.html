@@ -11,7 +11,7 @@
 	<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 
 	<style>
-		.col-lg-8, .col-lg-4 {
+		.col, .col-lg-4 {
 			padding: 0.5rem;
 		}
 		.card, .jumbotron {
@@ -24,13 +24,12 @@
 			margin-bottom: 0.2rem;
 			color: black;
 		}
+		.card button {
+			color: white;
+		}
 		.card-body {
 			padding: 1rem;
 		}
-		.form-control {
-			color: white;
-		}
-	
 	</style>
 
 </head>
@@ -41,17 +40,17 @@
 	</nav>
 	<div class="container wrapper">
 		<div class="row">
-			<div class="col-lg-8">
+			<div class="col">
 				<div class="jumbotron text-center">
 					<h1 class="display-4">
 						Note Taker <span role="img" aria-label="Memo">📝</span>
 					</h1>
 					<h4 class="mt-4">Take notes with Express</h4>
 					<h5 style="color: red;">Warning: Don't write anything important or personal into this website! This is just a demo!</h5>
-					<!-- <a class="btn btn-primary btn-lg mt-4" href="/notes.html" role="button">Get Started</a> -->
+					<button class="btn btn-primary btn-lg mt-4 get-started-btn">Get Started</button>
 				</div>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-4 display-none login-card">
 				<div class="card">
 					<div class="card-header"><h3>Sign Up | Login</h3></div>
 					<div class="card-body">
@@ -65,13 +64,14 @@
 						</div>
 						<small class="form-text">Don't use your bank password or anything important like that!</small>
 						<small class="response-message"></small>
-						<button class="btn btn-block btn-info sign-up">New here? Create Account</button>
+						<button class="btn btn-block btn-primary sign-up">New here? Create Account</button>
 						<button class="btn btn-block btn-success sign-in">Login</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<footer>Ⓒ Munkhtsogt Battsogt 2020</footer>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="/assets/js/index.js"></script>
 </body>
