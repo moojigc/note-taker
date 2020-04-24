@@ -250,7 +250,14 @@ const clearNote = () => {
   $noteTitle.val(''); 
   $noteText.val('');
 }
+const $logOutBtn = $('.log-out'); 
+const logOut = () => {
+  sessionStorage.setItem('user_id', null);
+  sessionStorage.setItem('username', null);
+  if (window.location.pathname !== '/index.html') window.open('/index.html', '_self');
+}
 
+$logOutBtn.on("click", logOut);
 $getStartedBtn.on("click", getStarted);
 $saveNoteBtn.on("click", handleNoteSave);
 $noteList.on("click", ".list-group-item", handleNoteView);

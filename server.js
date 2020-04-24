@@ -20,8 +20,6 @@ async function authenticate() {
         console.log(`Successfully connected to ${DB_NAME} at ${DB_HOST}.`);
     } catch (error) {
         console.error('Unable to connect to the database:', error);
-    } finally {
-        console.log(`Connection closed.`);
     }
 }
 authenticate();
