@@ -18,17 +18,20 @@ async function authenticate() {
     try {
         await sequelize.authenticate();
         console.log(`Successfully connected to ${DB_NAME} at ${DB_HOST}.`);
-      } catch (error) {
+    } catch (error) {
         console.error('Unable to connect to the database:', error);
+    } finally {
+        console.log(`Connection closed.`);
     }
 }
-authenticate(); // Tests connection
+authenticate();
 
 async function dbQuery(sql, type, ...query) { // Takes sql escaped value and sends that command to db
+    console.log('Values are: ' + JSON.stringify(query, null, 2));
     const result = await sequelize.query(
         // sql = Raw SQL command using ? for data replacements
         // query = what you want to search or input
-        // type = query type, e.g. select, update, insert
+        // type = query type, e.g. select, insert
         sql, {
             replacements: query,
             type: type
@@ -71,7 +74,16 @@ async function dbDeleteRequest(res, sql, ...query) {
         console.log(error)
     }
 }
-
+async function dbUpdateRequest(res, sql, ...query) {
+    try {        
+        const result = await dbQuery(sql, QueryTypes.UPDATE, query);
+        res.sendStatus(201);
+        return result;
+    } catch (error) {
+        res.sendStatus(400)
+        console.log(error)
+    }
+}
 
 function getPage() { // serves html pages
     // sends home page
@@ -89,7 +101,7 @@ function signUpLogin() {
     // Sign up
     app.post('/signup', async (req, res) => {
         const usernameTaken = async () => {
-            const sql = `SELECT * FROM users WHERE username = ?;`;
+            const sql = `SELECT id FROM users WHERE username = ?;`;
             const query = await dbQuery(sql, QueryTypes.SELECT, req.body.username);
             console.log(`Returned ${query.length} results.`);
             return query.length;
@@ -98,8 +110,8 @@ function signUpLogin() {
             let newUser = new User(req.body.username);
             newUser.setPassword(req.body.password);
             console.log(newUser);
-            let sql = `INSERT INTO users(username, hash, salt) VALUES('${newUser.username}', '${newUser.hash}', '${newUser.salt}');`;
-            await dbQuery(sql, QueryTypes.INSERT);
+            let sql = `INSERT INTO users(username, hash, salt) VALUES(?);`;
+            await dbQuery(sql, QueryTypes.INSERT, newUser.username, newUser.hash, newUser.salt);
             const createdUser = await dbQuery('SELECT id FROM users WHERE username = ?', QueryTypes.SELECT, req.body.username);
             console.log(newUser);
             res.status(201).send({
@@ -189,8 +201,13 @@ async function startConnection() {
     // POST
     app.post('/api/notes', (req, res) => {
         const { user_id, post_title, body } = req.body;
-        const sql = `INSERT INTO notes(user_id, post_title, body) VALUES(${user_id}, '${post_title}', '${body}');`;
-        dbPostRequest(res, sql);
+        const sql = `INSERT INTO notes(user_id, post_title, body) VALUES(?);`;
+        dbPostRequest(res, sql, user_id, post_title, body);
+    });
+    app.post('/api/notes/:id', (req, res) => {
+        const { post_title, body } = req.body;
+        const sql = `UPDATE notes SET post_title = '${post_title}', body = '${body}' WHERE id = ${req.params.id};`;
+        dbUpdateRequest(res, sql);
     });
     // DELETE
     app.delete('/api/notes/:id', (req, res) => {

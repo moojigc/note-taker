@@ -12,6 +12,7 @@ const $responseMessage = $(".response-message");
 const $editBtn = $(".edit-btn");
 const $getStartedBtn = $('.get-started-btn')
 const $timeDisplay = $('.time');
+const $saveEditBtn = $('.save-edit');
 
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
@@ -23,22 +24,20 @@ const storedUsername = sessionStorage.getItem("username");
 let sessionUserID = storedUserID ? storedUserID : null;
 let sessionUsername = storedUsername ? storedUsername : null;
 
-console.log(window);
-if (sessionUserID === storedUserID && window.location.pathname !== '/notes.html') {
-  // window.open('./notes.html', '_self');
-};
-
 console.log('%c ' + sessionUserID, 'color: pink; background: black; font-weight: bold;');
 
 const getStarted = () => {
   const [$jumbotron, $loginCard] = [$('.jumbotron').parent(), $('.login-card')];
   // Make the jumbo smaller, have the card appear, and remove btn 
-  $jumbotron.animate({
-    maxWidth: "calc(100% * 2 / 3)",
-  }, 400)
-  $loginCard.show(400);
-  $getStartedBtn.hide(600);
-
+  if (sessionUserID === storedUserID && window.location.pathname !== '/notes.html') {
+    window.open('./notes.html', '_self');
+  } else {
+    $jumbotron.animate({
+      maxWidth: "calc(100% * 2 / 3)",
+    }, 400)
+    $loginCard.show(400);
+    $getStartedBtn.hide(600);
+  }
 }
 
 const signUp = async () => {
@@ -57,6 +56,7 @@ const signUp = async () => {
     sessionStorage.setItem("user_id", res.user_id);
     sessionStorage.setItem("username", res.username);
     console.log(res);
+    $responseMessage.text(res.message).attr("style", "background: lightgreen; color: white;"); 
     window.open('/notes.html', "_self");
   }
 }
@@ -79,7 +79,7 @@ const signIn = async () => {
     console.log(res);
     window.open('/notes.html', "_self");
   } else {
-    $responseMessage.text(res.message).attr("style", "background: red; color: white;");
+    $responseMessage.text(res.message).attr("style", "background: red; color: white;"); 
   }
 }
 
@@ -103,6 +103,7 @@ const saveNote = function(note) {
 
 // A function for deleting a note from the db
 const deleteNote = function(id) {
+  console.log(`deleting note #${id}`);
   return $.ajax({
     url: "api/notes/" + id,
     method: "DELETE"
@@ -114,6 +115,7 @@ const deleteNote = function(id) {
 // If there is an activeNote, display it, otherwise render empty inputs
 const renderActiveNote = function() {
   $saveNoteBtn.hide();
+  $saveEditBtn.hide();
   // $timeDisplay.attr("style", "margin: 0");
 
   if (activeNote.id) {
@@ -133,13 +135,19 @@ const renderActiveNote = function() {
 };
 
 // Edit notes
-const editNote = () => {
-  $saveNoteBtn.show('fast');
+const editNote = (note) => {
+  $saveEditBtn.show('fast');
 
   if (activeNote.id) {
     $noteTitle.attr("readonly", false);
     $noteText.attr("readonly", false);
   }
+
+  return $.ajax({
+    url: `/api/notes/${activeNote.id}`,
+    data: note,
+    method: 'POST'
+  });
 }
 
 // Get the note data from the inputs, save it to the db and update the view
@@ -155,6 +163,17 @@ const handleNoteSave = function() {
     renderActiveNote();
   });
 };
+const handleNoteUpdate = () => {
+  let newNote = {
+    user_id: sessionUserID,
+    post_title: $noteTitle.val(),
+    body: $noteText.val()
+  };
+  editNote(newNote).then(function() {
+    getAndRenderNotes();
+    renderActiveNote();
+  });
+}
 
 // Delete the clicked note
 const handleNoteDelete = function(event) {
@@ -162,12 +181,12 @@ const handleNoteDelete = function(event) {
   event.stopPropagation();
 
   let note = $('.delete-note')
-    .parent(".list-group-item")
+    .parent()
     .data();
   console.log(note);
-  if (activeNote.id === note.id) {
-    activeNote = note;
-  }
+  // if (activeNote.id === note.id) {
+  //   activeNote = note;
+  // }
 
   deleteNote(note.id).then(function() {
     getAndRenderNotes();
@@ -192,6 +211,7 @@ const handleNewNoteView = function() {
 const handleRenderSaveBtn = function() {
   if (!$noteTitle.val().trim() || !$noteText.val().trim()) {
     $saveNoteBtn.hide();
+    $saveEditBtn.hide();
   } else {
     $saveNoteBtn.show();
   }
@@ -206,7 +226,7 @@ const renderNoteList = function(notes) {
 
   for (let i = 0; i < notes.length; i++) {
     let note = notes[i];
-    console.log(`${i}. ${note.id}`, 'color: pink; font-weight: bold; background: black;');
+    console.log(`%c ${i}. ${note.id}`, 'color: pink; font-weight: bold; background: black;');
 
     let $li = $("<button class='list-group-item list-group-item-action'>").data(note);
     let $span = $("<span>").text(note.post_title);
@@ -239,6 +259,7 @@ $noteTitle.on("keyup", handleRenderSaveBtn);
 $noteText.on("keyup", handleRenderSaveBtn);
 $clearBtn.on("click", clearNote);
 $editBtn.on("click", editNote);
+$saveEditBtn.on("click", handleNoteUpdate);
 $signUpBtn.on("click", signUp);
 $signInBtn.on("click", signIn);
 $(document).on("click", ".delete-note", handleNoteDelete);
