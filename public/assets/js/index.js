@@ -24,8 +24,6 @@ const storedUsername = sessionStorage.getItem("username");
 let sessionUserID = storedUserID ? storedUserID : null;
 let sessionUsername = storedUsername ? storedUsername : null;
 
-console.log('%c ' + sessionUserID, 'color: pink; background: black; font-weight: bold;');
-
 const getStarted = () => {
   const [$jumbotron, $loginCard] = [$('.jumbotron').parent(), $('.login-card')];
   // Make the jumbo smaller, have the card appear, and remove btn 
@@ -50,12 +48,11 @@ const signUp = async () => {
     method: "POST"
   });
   if (!res.succeeded) {
-    console.log(res.message);
+    $responseMessage.text(res.message).attr("style", "background: red; color: white;"); 
     return;
   } else {
     sessionStorage.setItem("user_id", res.user_id);
     sessionStorage.setItem("username", res.username);
-    console.log(res);
     $responseMessage.text(res.message).attr("style", "background: lightgreen; color: white;"); 
     window.open('/notes.html', "_self");
   }
@@ -76,7 +73,6 @@ const signIn = async () => {
     const { user_id } = res;
     sessionStorage.setItem("user_id", user_id);
     sessionStorage.setItem("username", res.username);
-    console.log(res);
     window.open('/notes.html', "_self");
   } else {
     $responseMessage.text(res.message).attr("style", "background: red; color: white;"); 
@@ -93,7 +89,6 @@ const getNotes = function() {
 
 // A function for saving a note to the db
 const saveNote = function(note) {
-  console.log(note)
   return $.ajax({
     url: "/api/notes/",
     data: note,
@@ -103,7 +98,6 @@ const saveNote = function(note) {
 
 // A function for deleting a note from the db
 const deleteNote = function(id) {
-  console.log(`deleting note #${id}`);
   return $.ajax({
     url: "api/notes/" + id,
     method: "DELETE"
@@ -183,7 +177,6 @@ const handleNoteDelete = function(event) {
   let note = $(this)
     .parent('.list-group-item')
     .data();
-  console.log(note);
   // if (activeNote.id === note.id) {
   //   activeNote = note;
   // }
@@ -226,7 +219,6 @@ const renderNoteList = function(notes) {
 
   for (let i = 0; i < notes.length; i++) {
     let note = notes[i];
-    console.log(`%c ${i}. ${note.id}`, 'color: pink; font-weight: bold; background: black;');
 
     let $li = $("<button class='list-group-item list-group-item-action'>").data(note);
     let $span = $("<span>").text(note.post_title);
@@ -241,7 +233,6 @@ const renderNoteList = function(notes) {
 // Gets notes from the db and renders them to the sidebar
 const getAndRenderNotes = function() {
   return getNotes().then(function(data) {
-    console.log(data);
     renderNoteList(data);
   });
 };
