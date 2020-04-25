@@ -102,14 +102,15 @@ function signUpLogin() {
             const sql = `SELECT id FROM users WHERE username = ?;`;
             const query = await dbQuery(sql, QueryTypes.SELECT, req.body.username);
             console.log(`Returned ${query.length} results.`);
-            return query.length;
+            return parseInt(query.length);
         }
-        if (parseInt(await usernameTaken()) === 0) {
+        if (await usernameTaken() === 0) {
             let newUser = new User(req.body.username);
             newUser.setPassword(req.body.password);
             console.log(newUser);
             let sql = `INSERT INTO users(username, hash, salt) VALUES(?);`;
-            await dbQuery(sql, QueryTypes.INSERT, newUser.username, newUser.hash, newUser.salt);
+            const query = [newUser.username, newUser.hash, newUser.salt];
+            await dbQuery(sql, QueryTypes.INSERT, query);
             const createdUser = await dbQuery('SELECT id FROM users WHERE username = ?', QueryTypes.SELECT, req.body.username);
             console.log(newUser);
             res.status(201).send({
