@@ -33,6 +33,7 @@ body {
 .wrapper {
   background: var(--transluscent);
   margin: 1rem auto;
+  margin-bottom: 5rem;
   padding: 1rem;
   border-radius: 0.5rem;
 	box-shadow: 0 0 1rem 0.2rem var(--box-shadow);
