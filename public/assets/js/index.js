@@ -1,5 +1,6 @@
 const $noteTitle = $(".note-title");
 const $noteText = $(".note-textarea");
+const $noteMarkdown = $('.markdown')
 const $saveNoteBtn = $(".save-note");
 const $newNoteBtn = $(".new-note");
 const $noteList = $(".notes-list");
@@ -35,6 +36,11 @@ const getStarted = () => {
 		$loginCard.show(400);
 		$getStartedBtn.hide(600);
 	}
+}
+
+function markdown(text) {
+	const converter = new showdown.Converter();
+    return converter.makeHtml(text);
 }
 
 const signUp = async () => {
@@ -118,12 +124,17 @@ const deleteNote = function (id) {
 
 // If there is an activeNote, display it, otherwise render empty inputs
 const renderActiveNote = function () {
+	const convertedText = markdown(activeNote.body);
+	
 	if (activeNote.id) {
+		$noteMarkdown.show();
+		$noteText.hide();
 		$editBtn.show('fast');
 		$noteTitle.attr("readonly", true);
 		$noteText.attr("readonly", true);
 		$noteTitle.val(activeNote.post_title);
 		$noteText.val(activeNote.body);
+		$noteMarkdown.html(convertedText);
 		$timeDisplay.text(`Created: ${moment(activeNote.publish_at).format('MMMM Do, YYYY hh:mm a')}.`);
 	} else {
 		$noteTitle.attr("readonly", false);
@@ -192,6 +203,8 @@ const handleNoteView = function () {
 // Sets the activeNote to and empty object and allows the user to enter a new note
 const handleNewNoteView = function () {
 	$editBtn.hide('fast');
+	$noteMarkdown.hide();
+	$noteText.show();
 
 	activeNote = {};
 	renderActiveNote();
@@ -227,8 +240,20 @@ const handleRenderSaveBtn = function () {
 		}
 	}
 };
+$(document).on('click', 'button', handleRenderSaveBtn);
+
 const handleEditNote = () => {
-	$noteTitle.attr('readonly', false);
+	updatedNote = {
+		user_id: sessionUserID,
+		id: activeNote.id,
+		post_title: $noteTitle.val(),
+		body: $noteText.val(),
+		publish_at: activeNote.publish_at
+	}
+	activeNote = updatedNote;
+	$noteMarkdown.hide();
+	$noteText.show();
+	$noteTitle.attr('readonly', false).show();
 	$noteText.attr('readonly', false);
 
 	$editBtn.hide('fast');
@@ -256,7 +281,7 @@ const renderNoteList = function (notes) {
 
 // Gets notes from the db and renders them to the sidebar
 const getAndRenderNotes = function () {
-	return getNotes().then(function (data) {
+	return getNotes().then(function(data) {
 		renderNoteList(data);
 	});
 };

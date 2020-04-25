@@ -78,22 +78,37 @@ body {
   border: none;
 }
 
-.note-textarea {
+.note-textarea, .markdown {
   resize: none;
   height: calc(100% - 63px);
   padding-top: 15px;
+}
+.markdown {
+  min-height: calc(20rem - 63px);
+  border-radius: 0.5rem;
+  background: var(--secondary);
+  padding: 1rem;
+  color: white;
+  width: 100%;
 }
 
 .note-title {
   height: 50px;
   font-size: 3rem;
 }
-
+/* Chromium browsers */
 .note-title:read-only,
 .note-textarea:read-only {
   background: var(--secondary);
   color: whitesmoke;
 }
+/* Firefox */
+.note-title:-moz-read-only,
+.note-textarea:-moz-read-only {
+  background: var(--secondary);
+  color: whitesmoke;
+}
+
 
 .list-container .card {
   height: calc(100vh - 70px);
