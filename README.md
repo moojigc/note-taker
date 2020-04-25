@@ -4,8 +4,6 @@
 
 Developed by Moojig Battsogt. 
 
-<img src='https://avatars1.githubusercontent.com/u/57543294?v=4' style='width: 100px'>
-
 Contact at moojig@nyu.edu.
 
 ## Description 
