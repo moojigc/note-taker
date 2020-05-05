@@ -12,14 +12,6 @@ Save a quick note, or two or however many (with Markdown formatting support) and
 
 *(note that any data input isn't meant to be genuinely secure, yet!)*
 
-## Table of Contents
-
-* [Link](#Link)
-* [Usage](#usage)
-* [Credits](#credits)
-* [License](#license)
-
-
 ## Link
 
 See the deployed app at [Heroku.](https://note-taker-mooj.herokuapp.com/)
