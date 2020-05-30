@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express"),
 	exphbs = require("express-handlebars"),
 	flash = require("connect-flash"),

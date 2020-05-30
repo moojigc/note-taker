@@ -1,5 +1,6 @@
 config.json
 nodemon.json
+.env
 # Logs
 logs
 *.log
