@@ -8,30 +8,13 @@ Contact at moojig@nyu.edu.
 
 ## Description 
 
-Generates a readme.md based on your GitHub profile and answers to questions through the use of the NodeJS package 'inquirer'
+Save a quick note, or two or however many (with Markdown formatting support) and be able to login and access your notes again from anywhere! You can update and delete notes too.
 
-## Table of Contents
-
-* [Link](#Link)
-* [Usage](#usage)
-* [Credits](#credits)
-* [License](#license)
-
+*(note that any data input isn't meant to be genuinely secure, yet!)*
 
 ## Link
 
 See the deployed app at [Heroku.](https://note-taker-mooj.herokuapp.com/)
-
-
-## Usage 
-
-Create an account and start writing, editing, and deleting your notes with Markdown formatting! Powered by Express and MySQL.
-
-
-## Tests
-
-None.
-
 
 ## Known Bugs/To Do
 
