@@ -1,0 +1,35 @@
+<div class="container mt-4">
+    <div class="login-card col-lg-6 m-auto">
+        <div class="card" style="text-align: center;">
+            <div class="card-header">
+                <h3>Register</h3>
+            </div>
+            <form action="/api/register" method="POST" class="card-body">
+                <label for="username">Username</label>
+                <div class="input-group">
+                    <input type="text" name="username" class="form-control username">
+                </div>
+                <label for="password">Password</label>
+                <div class="input-group">
+                    <input type="password" name="password" class="form-control password">
+                </div>
+                    <label for="confirm-password">Confirm Password</label>
+                <div class="input-group">
+                    <input type="password" name="password2" class="form-control password">
+                </div>
+                <small class="form-text">Don't use your bank password or anything important like that!</small>
+                {{#if successMsg}}
+                <h5 class="alert alert-success">{{successMsg}}</h5>
+                {{/if}}
+                {{#if errorMsg}}
+                <h5 class="alert alert-warning">{{errorMsg}}</h5>
+                {{/if}}
+                {{#if error}}
+                <h5 class="alert alert-warning">{{error}}</h5>
+                {{/if}}
+                <button type="submit" class="btn btn-block btn-success">Sign Up</button>
+                <a href="/login" style="margin: 0 auto;"><u>(Have an account? Click here to login)</u></a>
+            </div>
+        </div>
+    </div>
+</div>

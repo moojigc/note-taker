@@ -1,0 +1,36 @@
+<div class="container-fluid wrapper">
+    <div class="row">
+        <div class="col-lg-8 note-entry">
+            <div class="input-group input-group-lg mb-3">
+                <input type="text" name="title" placeholder="Note Title" class="form-control note-title">
+            </div>
+            <div class="input-group">
+                <textarea name="body" placeholder="Enter note here..." rows="10"
+                    class="form-control note-textarea display-none"></textarea>
+                <div class="markdown">
+
+                </div>
+            </div>
+            <p class="time"></p>
+            <div class="button-group">
+                <button class="btn btn-info edit-btn display-none">Edit <i class="far fa-edit"></i></button>
+                <button class="btn btn-tertiary new-note">New <i class="fas fa-pen text-light"></i></button>
+                <button class="btn btn-primary save-note display-none">Save New <i
+                        class="fas fa-save text-light"></i></button>
+                <button class="btn btn-primary save-edit display-none">Save Edit <i
+                        class="fas fa-save text-light"></i></button>
+            </div>
+        </div>
+        <div class="col-lg-4 notes-list-container">
+            <div class="card">
+                <div class="card-header">
+                    {{user}}'s notes
+                </div>
+                <div class="card-body">
+                    <ul class="list-group notes-list">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

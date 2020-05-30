@@ -1,0 +1,43 @@
+<div class="container wrapper">
+    <div class="row">
+        <div class="col-lg-4 login-card">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Login</h3>
+                </div>
+                <form action="/api/login" method="POST" class="card-body">
+                    <label for="username">Username</label>
+                    <div class="input-group mb-4">
+                        <input type="text" name="username" class="form-control username">
+                    </div>
+                    <label for="username">Password</label>
+                    <div class="input-group">
+                        <input type="password" name="password" class="form-control password">
+                    </div>
+                    <small class="form-text">Don't use your bank password or anything important like that!</small>
+                    {{#if successMsg}}
+                    <h5 class="alert alert-success">{{successMsg}}</h5>
+                    {{/if}}
+                    {{#if errorMsg}}
+                    <h5 class="alert alert-warning">{{errorMsg}}</h5>
+                    {{/if}}
+                    {{#if error}}
+                    <h5 class="alert alert-warning">{{error}}</h5>
+                    {{/if}}
+                    <button type="submit" class="btn btn-block btn-success">Login</button>
+                    <a href="/register" ><u>(Or click here for first-time sign up)</u></a>
+                </form>
+            </div>
+        </div>
+        <div class="col">
+            <div class="jumbotron text-center">
+                <h1 class="display-4">
+                    Note Taker <span role="img" aria-label="Memo">📝</span>
+                </h1>
+                <h4 class="mt-4">Take notes with Express</h4>
+                <h5 style="color: red;">Warning: Don't write anything important or personal into this website! This is
+                    just a demo!</h5>
+            </div>
+        </div>
+    </div>
+</div>
