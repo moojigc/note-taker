@@ -51,6 +51,17 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="/assets/js/index.js"></script>
+	<script>
+		// Adjust footer based on document body height
+		function adjFooter() {
+			if (window.innerHeight > $('body').height()) $('footer').attr('style', 'position: fixed; bottom: 0; width: 100%;')
+			else {
+				$('footer').removeAttr('style');
+				$('footer').attr('style', 'position: unset');
+			}
+		}
+		adjFooter();
+	</script>
 </body>
 
 </html>
