@@ -49,9 +49,9 @@ async function main() {
     console.log("Error connecting to database: ");
     throw error;
   }
-  app.listen(PORT, (err) => {
+  app.listen(`0.0.0.0:${PORT}`, (err) => {
     if (err) throw err;
-    else console.log(`Listening on ${PORT}.`);
+    else console.log(`Listening on 0.0.0.0:${PORT}`);
   });
 }
 main();
