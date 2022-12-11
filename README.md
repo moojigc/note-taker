@@ -1,8 +1,8 @@
 # Note Taker
 
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](https://www.contributor-covenant.org/version/2/0/code_of_conduct/)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/moojigc/note-taker/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/moojigc/note-taker/tree/master)
 
-A project by Moojig Chimid.
+A bootcamp project by Moojig Chimid.
 
 ## Description
 
@@ -35,3 +35,4 @@ ISC License
         WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
         ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
         OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
