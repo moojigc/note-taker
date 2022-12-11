@@ -17,6 +17,7 @@ app
   .engine("handlebars", exphbs.engine({ defaultLayout: "main" }))
   .set("view engine", "handlebars")
   // Sessions
+  .use(morgan("dev"))
   .use(
     session({
       // Set cookies to expire after 3 months
