@@ -1,0 +1,42 @@
+version: '3.9'
+
+networks:
+  notes-net:
+   driver: bridge
+services:
+  notes-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.development
+    command: npm run watch
+    container_name: notes-app
+    networks:
+      - notes-net
+    ports:
+      - 3000:80
+    environment:
+      - PORT=80
+      - DB_HOST=notes-db
+      - DB_NAME=notes
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - DB_PORT=3306
+      - DB_DIALECT=mysql
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - notes-db
+  notes-db:
+    container_name: notes-db
+    image: mysql:8.0
+    ports:
+      - 33306:3306
+    command: --init-file /data/application/init.sql
+    volumes:
+      - ./.database/data:/var/lib/mysql
+      - ./.database/init.sql:/data/application/init.sql
+    networks:
+      - notes-net
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
