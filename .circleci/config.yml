@@ -10,12 +10,12 @@ jobs:
           command: |
             echo 'Starting build...'
             sudo docker login $DOCKERHUB_HOST -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
-            sudo docker build --pull --rm -f "Dockerfile" -t $DOCKERHUB_HOST/note-taker:latest "."
+            sudo docker build --pull --rm -f "Dockerfile" -t $DOCKERHUB_HOST/portfolio/note-taker:latest "."
       - run:
           name: Push Docker Image
           command: |
             echo 'Pushing to $DOCKERHUB_HOST...'
-            sudo docker push $DOCKERHUB_HOST/note-taker:latest
+            sudo docker push $DOCKERHUB_HOST/portfolio/note-taker:latest
       - run:
           name: Run webhook
           command: |
